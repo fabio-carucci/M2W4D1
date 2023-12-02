@@ -139,6 +139,11 @@ const finalObject = {
 // Use of '.toLowerCase' to make the search case-insensitive.
 
 function SearchingAlgoritm (title, location) {
+
+  // Initializing the keys of the 'finalObject' to an empty value every time the function is called.
+  finalObject.result = [];
+  finalObject.count = 0;
+
   for (let i = 0; i < jobs.length; i++) {
     let JobsElement = jobs[i];
     if ((JobsElement.title.toLowerCase().includes(title.toLowerCase())) 
@@ -149,6 +154,22 @@ function SearchingAlgoritm (title, location) {
   }
 }
 
-// Console.log for checking to understand if it works correctly."
-SearchingAlgoritm("Service", "us");
-console.log(finalObject);
+//// Console.log for checking to understand if it works correctly."
+
+//// SearchingAlgoritm("Service", "us");
+//// console.log(finalObject);
+
+let myTitle = "";
+let myLocation = "";
+
+// Setting up the listener on the user's click after they have entered words in the inputs.
+
+document.getElementById("searchButton").addEventListener("click", () => {
+  myTitle = document.getElementById("title").value;
+  myLocation = document.getElementById("location").value;
+  if (/\d/.test(myTitle) || /[^\w\s]/.test(myTitle) || /\d/.test(myLocation) || /[^\w\s]/.test(myLocation)) {
+    return alert("Hai inserito una cifra o un carattere speciale");
+  } 
+  SearchingAlgoritm(myTitle, myLocation);
+  console.log(finalObject);
+})
