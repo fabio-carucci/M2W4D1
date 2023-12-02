@@ -1,44 +1,3 @@
-// PARTE 1: 
-// Oggi analizzeremo un problema molto comune: realizzare algoritmi di ricerca.
-// Il tuo compito è creare una funzione che cercherà per posizione lavorativa e posizione geografica. 
-// Questi due valori verranno passati come parametri
-// Ti abbiamo fornito un array chiamato "jobs" in fondo al file, NON modificarlo in alcun modo.
-// L'algoritmo che devi realizzare cercherà SIA per posizione lavorativa che per posizione geografica.
-// Prendi queste tre inserzioni ad esempio:
-
-      // job1:  location: "NY, US",     title: "java dev"
-      // job2:  location: "Genoa, IT"   title: "web dev"
-      // job3:  location: "US"      title: "dev"
-
-// Cercando contemporaneamente come posizione lavorativa "dev" e posizione geografica "US", dovresti ottenere come risultato 
-// solamente job1 e job3, in quanto job2 non soddisfa la condizione posta sulla posizione geografica.
-
-// REQUISITI:
-// - il tuo algoritmo deve tornare i risultati nella seguente forma:
-// {
-//   result: [], <-- inserisci qui le inserzioni che rispecchiano la posizione lavorativa e la posizione geografica richiesta
-//   count: 0 <-- inserisci qui il numero totale delle inserzioni trovate
-// }
-
-// - da ogni inserzione trovata, elimina i campi "description", "requirements", "benefits" e "company_profile" per semplificare 
-// il risultato
-
-// - la tua ricerca deve essere "case insensitive" (non deve essere influenzata da lettere maiuscole o minuscole
-//   nelle parole cercate). Questo e' possibile trasformando tutto in lettere minuscole con .toLowerCase()
-
-
-// PARTE 2: 
-// Nella pagina HTML, inserisci 2 input di tipo testo (uno per la location e uno per il titolo lavorativo, ricordati di 
-// diversificarli con un id) e un bottone con valore “cerca”
-
-// Al click del bottone, il codice deve raccogliere i valori dei due input e darli in pasto alla funzione
-// che hai creato nella parte 1. 
-
-// Dopo aver raccolto ed elaborato i dati, e’ il momento di mostrare i risultati sulla pagina: 
-//     Puoi scegliere tu se utilizzare un semplice ul / li oppure una tabella 
-//     Vai passo per passo e usa molti console.log per capire eventualmente dove sbagli
-//     SUGGERIMENTO: ti servira’ un ciclo for!
-
 // NON MODIFICARE QUESTO ARRAY!
 const jobs = [
   { title: "Marketing Intern", location: "US, NY, New York" },
@@ -138,7 +97,7 @@ const finalObject = {
 // and inserts the result into the final object.
 // Use of '.toLowerCase' to make the search case-insensitive.
 
-function SearchingAlgoritm (title, location) {
+function searchingAlgoritm (title, location) {
 
   // Initializing the keys of the 'finalObject' to an empty value every time the function is called.
   finalObject.result = [];
@@ -154,10 +113,35 @@ function SearchingAlgoritm (title, location) {
   }
 }
 
-//// Console.log for checking to understand if it works correctly."
+// Creating function that create the dynamic table of the results
 
-//// SearchingAlgoritm("Service", "us");
-//// console.log(finalObject);
+function dynamicTable (resultObject) {
+
+  // Check if there is a table yet
+  let myTableContainer = document.getElementById("tableContainer");
+  if (myTableContainer) {
+    document.body.removeChild(myTableContainer);
+  }
+
+  let table = document.createElement("table");
+  let tHead = table.createTHead().insertRow();
+  tHead.insertCell().textContent = "TITLE"
+  tHead.insertCell().textContent = "LOCATION"
+  let tBody = table.createTBody();
+  for (let i = 0; i < resultObject.count; i++) {
+    let row = tBody.insertRow(i);
+    row.insertCell().textContent = resultObject.result[i].title;
+    row.insertCell().textContent = resultObject.result[i].location;
+  }
+
+  let containerOfTable = document.createElement("div");
+  containerOfTable.id = "tableContainer";
+
+  document.body.appendChild(containerOfTable);
+  document.getElementById("tableContainer").appendChild(table);
+}
+
+// Declaration and empty assignment of two variables where what the user writes in the inputs will be inserted
 
 let myTitle = "";
 let myLocation = "";
@@ -170,6 +154,7 @@ document.getElementById("searchButton").addEventListener("click", () => {
   if (/\d/.test(myTitle) || /[^\w\s]/.test(myTitle) || /\d/.test(myLocation) || /[^\w\s]/.test(myLocation)) {
     return alert("Hai inserito una cifra o un carattere speciale");
   } 
-  SearchingAlgoritm(myTitle, myLocation);
-  console.log(finalObject);
+
+  searchingAlgoritm(myTitle, myLocation);
+  dynamicTable(finalObject);
 })

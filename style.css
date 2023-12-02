@@ -34,10 +34,38 @@ form legend {
 
 #searchButton {
     background-color: #ff6666; 
-    border: 1px solid #ff6666; 
+    border: 1px solid black; 
     border-radius: 5px; 
     color: white; 
     padding: 5px 20px; 
     font-size: 1.2em; 
     cursor: pointer;
 } 
+
+#tableContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#tableContainer table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    border-radius: 20px;
+}
+
+#tableContainer table thead td {
+    font-size: 1.2em;
+    font-weight: bold;
+    background-color: #ff6666;
+    color: white;
+}
+
+#tableContainer table td {
+    padding: 10px;
+    border: 1px solid black;
+}
+
+#tableContainer table tr:hover {
+    background-color: #fff2f2;
+  }
